@@ -17,7 +17,7 @@ function tabBoyer(arrSearch) {
 
     return arrMap;
 }
-
+//Поиск Бойера-Мура
 function boyer(arrSearch, arrMap, arrOutput) {
     var i = arrSearch.length - 1;
 
@@ -52,7 +52,7 @@ function boyer(arrSearch, arrMap, arrOutput) {
     return -1;
 }
 var strOutput = document.getElementById('strOutput');
-strOutput.value = "Оценить времмяя работы";
+strOutput.value = "Оценка времени работы метода поиска Бойера-Мура и Стандартной функции поиска.";
 
 var inputStr = document.getElementById('inputStr');
 
@@ -81,7 +81,7 @@ SearchStr.onclick = function () {
         }
         var end = new Date().getTime();
         if (result == -1) {
-            strSerch.innerHTML = "<div><p>Упрощенный Бойера-Мура:Подстрака не найдена</p></div>"
+            strSerch.innerHTML = "<div><p>Упрощенный Бойера-Мура:<br>Подстрака не найдена</p></div>"
         } else {
             //Вывод
             var textFull, textFull2, textSearch;
@@ -92,7 +92,7 @@ SearchStr.onclick = function () {
         }
 
     } else {
-        strSerch.innerHTML = "<p>Упрощенный Бойера-Мура:Подстрока не найдена</p>";
+        strSerch.innerHTML = "<div><p>Упрощенный Бойера-Мура:<br>Подстрока не найдена</p></div>";
     }
     // Стандартный поиск 
     start = new Date().getTime();
@@ -101,13 +101,13 @@ SearchStr.onclick = function () {
     }
     end = new Date().getTime();
     //Вывод
-    if (standartSearch >= 0) {
+    if (standartSearch >= 0 && inputStr.value!='') {
         textFull = strOutput.value.slice(0, standartSearch);
         textSearch = strOutput.value.slice(standartSearch, standartSearch + inputStr.value.length);
         textFull2 = strOutput.value.slice(standartSearch + inputStr.value.length, strOutput.value.length);
         strSerch.innerHTML += "<div><p>Cтандартнаяй функция поиска</p><p>" + textFull + "<s>" + textSearch + "</s>" + textFull2 + "</p>" + "<p>Время работы:" + (end - start) / 10000 + "ms</p></div>";
     } else {
-        strSerch.innerHTML += "<p><div>Cтандартной функции поиска: Подстрока не найдена</p></div>";
+        strSerch.innerHTML += "<div><p>Cтандартной функции поиска:<br> Подстрока не найдена</p></div>";
 
     }
 
@@ -115,10 +115,11 @@ SearchStr.onclick = function () {
 //Поиск -Упрощенный Бойера-Мура+ Стандарный поиск // без учетом регистра 
 SearchStr2.onclick = function () {
     var strSerch = document.getElementById('strSerch');
- var strCaps = inputStr.value.toUpperCase();
  var strOutputCaps=strOutput.value.toUpperCase();
+    var strCaps = inputStr.value.toUpperCase();
+ 
     if (inputStr.value.length <= strOutput.value.length) {
-        var tab = tabBoyer(strCaps.value);
+        var tab = tabBoyer(strCaps);
         var result = "";
         var start = new Date().getTime();
         for (var i = 0; i < 10000; i++) {
@@ -126,7 +127,7 @@ SearchStr2.onclick = function () {
         }
         var end = new Date().getTime();
         if (result == -1) {
-            strSerch.innerHTML = "<div><p>Упрощенный Бойера-Мура:Подстрака не найдена</p></div>"
+            strSerch.innerHTML = "<div><p>Упрощенный Бойера-Мура:<br>Подстрака не найдена</p></div>"
         } else {
             //Вывод
             var textFull, textFull2, textSearch;
@@ -137,12 +138,12 @@ SearchStr2.onclick = function () {
         }
 
     } else {
-        strSerch.innerHTML = "<div><p>Упрощенный Бойера-Мура:Подстрока не найдена</p></div>";
+        strSerch.innerHTML = "<div><p>Упрощенный Бойера-Мура:<br>Подстрока не найдена</p></div>";
     }
     // Стандартный поиск 
     start = new Date().getTime();
     for (var i = 0; i < 10000; i++) {
-        var standartSearch = strOutputCaps.value.indexOf(strCaps, 0);
+        var standartSearch = strOutputCaps.indexOf(strCaps, 0);
     }
     end = new Date().getTime();
     //Вывод
@@ -152,7 +153,7 @@ SearchStr2.onclick = function () {
         textFull2 = strOutput.value.slice(standartSearch + inputStr.value.length, strOutput.value.length);
         strSerch.innerHTML += "<div><p>Cтандартнаяй функция поиска</p><p>" + textFull + "<s>" + textSearch + "</s>" + textFull2 + "</p>" + "<p>Время работы:" + (end - start) / 10000 + "ms</p></div>";
     } else {
-        strSerch.innerHTML += "<div><p>Cтандартной функции поиска: Подстрока не найдена</p></div>";
+        strSerch.innerHTML += "<div><p>Cтандартной функции поиска:<br> Подстрока не найдена</p></div>";
 
     }
 
